@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[compact]{titlesec}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{wrapfig}
+\usepackage{url}
+\usepackage{listings}
+\usepackage[style=ieee]{biblatex}
+\usepackage{subfiles}
+
+\addbibresource{additional/refs.bib}
+\setcounter{biburllcpenalty}{8000}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\vspace*{1cm}
+\Huge
+\textbf{EVAC Assessment 1}
+\vspace{1.5cm}
+\Large
+
+\textbf{Exam No: Y3868718}
+\vfill
+\end{center}
+\end{titlepage}
+\section{Section 1}
+\subfile{sections/one}
+\pagebreak
+\printbibliography
+
+\end{document}

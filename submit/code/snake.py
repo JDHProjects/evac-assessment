@@ -46,15 +46,52 @@ class snake:
       return True
     else:
       return False
-  
-  # base, override with child class
-  def starved(self, timeSinceEaten):
-    return False
 
-  # base, override with child class
+  def senseWall(self, pos):
+    return(pos[0] <= 0 or pos[0] >= (self.YSIZE-1) or pos[1] <= 0 or pos[1] >= (self.XSIZE-1))
+
+  def senseTail(self, pos):
+    return pos in self.snake
+
+  def leftWall(self):
+    return self.senseWall([self.snake[0][0],self.snake[0][1]-1])
+
+  def leftTail(self):
+    return self.senseTail([self.snake[0][0],self.snake[0][1]-1])
+
+  def leftFood(self):
+    return self.food[1] < self.snake[0][1]
+
+  def rightWall(self):
+    return self.senseWall([self.snake[0][0],self.snake[0][1]+1])
+
+  def rightTail(self):
+    return self.senseTail([self.snake[0][0],self.snake[0][1]+1])
+
+  def rightFood(self):
+    return self.food[1] > self.snake[0][1]
+
+  def upWall(self):
+    return self.senseWall([self.snake[0][0]-1,self.snake[0][1]])
+
+  def upTail(self):
+    return self.senseTail([self.snake[0][0]-1,self.snake[0][1]])
+
+  def upFood(self):
+    return self.food[0] < self.snake[0][0]
+
+  def downWall(self):
+    return self.senseWall([self.snake[0][0]+1,self.snake[0][1]])
+
+  def downTail(self):
+    return self.senseTail([self.snake[0][0]+1,self.snake[0][1]])
+
+  def downFood(self):
+    return self.food[0] > self.snake[0][0]
+
   def getInputs(self):
-    return []
-
-  # base, override with child class
-  def getFitness(self, score, timeAlive):
-    return 0
+      return [  self.leftWall(), self.leftTail(), self.leftFood(),
+                self.rightWall(), self.rightTail(), self.rightFood(),
+                self.upWall(), self.upTail(), self.upFood(),
+                self.downWall(), self.downTail(), self.downFood(),
+                ]

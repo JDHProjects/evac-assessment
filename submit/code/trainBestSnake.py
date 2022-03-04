@@ -3,10 +3,10 @@ from deap import creator
 from deap import tools
 from datetime import datetime
 import random
-import common.neuralNetwork as neuralNetwork
-import common.baseSnake as baseSnake
-import common.displayGame as displayGame
-import common.runGame as runGame
+import displayGame
+import neuralNetwork
+import snake
+import runGame
 import numpy as np
 import pickle
 
@@ -14,68 +14,6 @@ import pickle
 XSIZE = YSIZE = 16
 
 random.seed(datetime.now())  # Set a random seed from the clock
-  
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", list, fitness=creator.FitnessMax)
-
-class currentSnake(baseSnake.snake):
-
-  def starved(self, timeSinceEaten):
-    if(5*len(self.snake) < timeSinceEaten):
-      return True
-    return False
-
-  def senseWall(self, pos):
-    return(pos[0] <= 0 or pos[0] >= (YSIZE-1) or pos[1] <= 0 or pos[1] >= (XSIZE-1))
-
-  def senseTail(self, pos):
-    return pos in self.snake
-
-  def leftWall(self):
-    return self.senseWall([self.snake[0][0],self.snake[0][1]-1])
-
-  def leftTail(self):
-    return self.senseTail([self.snake[0][0],self.snake[0][1]-1])
-
-  def leftFood(self):
-    return self.food[1] < self.snake[0][1]
-
-  def rightWall(self):
-    return self.senseWall([self.snake[0][0],self.snake[0][1]+1])
-
-  def rightTail(self):
-    return self.senseTail([self.snake[0][0],self.snake[0][1]+1])
-
-  def rightFood(self):
-    return self.food[1] > self.snake[0][1]
-
-  def upWall(self):
-    return self.senseWall([self.snake[0][0]-1,self.snake[0][1]])
-
-  def upTail(self):
-    return self.senseTail([self.snake[0][0]-1,self.snake[0][1]])
-
-  def upFood(self):
-    return self.food[0] < self.snake[0][0]
-
-  def downWall(self):
-    return self.senseWall([self.snake[0][0]+1,self.snake[0][1]])
-
-  def downTail(self):
-    return self.senseTail([self.snake[0][0]+1,self.snake[0][1]])
-
-  def downFood(self):
-    return self.food[0] > self.snake[0][0]
-
-  def getInputs(self):
-      return [  self.leftWall(), self.leftTail(), self.leftFood(),
-                self.rightWall(), self.rightTail(), self.rightFood(),
-                self.upWall(), self.upTail(), self.upFood(),
-                self.downWall(), self.downTail(), self.downFood()
-                ]
-
-  def getFitness(self, score, timeAlive):
-      return (score ** 3) * timeAlive
 
 def train(network, snake_game, IND_SIZE):
 
@@ -86,6 +24,9 @@ def train(network, snake_game, IND_SIZE):
     return ((fitness,), score)
 
   toolbox = base.Toolbox()
+  creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+  creator.create("Individual", list, fitness=creator.FitnessMax)
+
   toolbox.register("attr_float", random.uniform, -1.0, 1.0)
   toolbox.register("individual", tools.initRepeat, creator.Individual,
                   toolbox.attr_float, n=IND_SIZE)
@@ -109,7 +50,7 @@ def train(network, snake_game, IND_SIZE):
 
   logbook = tools.Logbook()
 
-  NGEN = 500
+  NGEN = 300
   CXPB = 0.0
   MUTPB = 1
   POP = 200
@@ -165,22 +106,22 @@ def train(network, snake_game, IND_SIZE):
 
 def genNetwork():
   numInputNodes = 12
-  numHiddenNodes1 = 16
+  numHiddenNodes = 16
   numOutputNodes = 4
 
-  IND_SIZE = ((numInputNodes+1) * numHiddenNodes1) + (numHiddenNodes1 * numOutputNodes)
+  IND_SIZE = ((numInputNodes+1) * numHiddenNodes) +  + (numHiddenNodes * numOutputNodes)
 
-  return neuralNetwork.NeuralNetwork(numInputNodes, numHiddenNodes1, numOutputNodes), IND_SIZE
+  return neuralNetwork.NeuralNetwork(numInputNodes, numHiddenNodes, numOutputNodes), IND_SIZE
 
 if __name__ == "__main__":
 
-  snake_game = currentSnake(XSIZE, YSIZE)
+  snake_game = snake.snake(XSIZE, YSIZE)
 
   network, IND_SIZE = genNetwork()
-  #'''
+
   (pop, stats) = train(network, snake_game, IND_SIZE)
 
-  filename = "data/best6"
+  filename = "dump"
   with open(filename+".pop", 'wb') as writeFile:
     pickle.dump(pop, writeFile)
 
@@ -192,19 +133,4 @@ if __name__ == "__main__":
   with open(filename+".stats", 'wb') as writeFile:
     pickle.dump(stats, writeFile)
 
-  #network.setWeightsLinear(bestInd)
-
-  #logbook = stats["logbook"]
-  #scores = stats["scores"]
-
-  #runGame.run_game(network, displayGame.DisplayGame(XSIZE, YSIZE), snake_game, headless=False)
-
-  '''
-  with open ("dump.stats", 'rb') as readFile:
-    stats = pickle.load(readFile)
-
-  common.generateScoreGraph(stats)
-  #network.setWeightsLinear(bestInd)
-
-  #runGame.run_game(network, displayGame.DisplayGame(XSIZE, YSIZE), snake_game, headless=False)
-  #'''
+  network.setWeightsLinear(bestInd)

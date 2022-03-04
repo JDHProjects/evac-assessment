@@ -26,7 +26,7 @@ class currentSnake(baseSnake.snake):
     return False
 
   def senseWall(self, pos):
-    return(pos[0] <= 0 or pos[0] >= (YSIZE-1) or pos[1] <= 0 or pos[1] >= (XSIZE-1))
+    return(pos[0] <= 0 or pos[0] >= (self.YSIZE-1) or pos[1] <= 0 or pos[1] >= (self.XSIZE-1))
 
   def senseTail(self, pos):
     return pos in self.snake
@@ -94,9 +94,9 @@ def train(network, snake_game, IND_SIZE):
 
   toolbox.register("evaluate", evaluate)
 
-  toolbox.register("select", tools.selRoulette)
+  toolbox.register("select", tools.selTournament, tournsize=3)
 
-  toolbox.register("mutate", tools.mutGaussian, mu=0.0, sigma=0.5, indpb=0.05)
+  toolbox.register("mutate", tools.mutGaussian, mu=0.0, sigma=0.5, indpb=0.1)
   toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 
@@ -159,11 +159,7 @@ def train(network, snake_game, IND_SIZE):
     print("Fitness mean : "+str(record['avg']))
   return pop, logbook
 
- 
-if __name__ == "__main__":
-
-  snake_game = currentSnake(XSIZE, YSIZE)
-
+def genNetwork():
   numInputNodes = 12
   numHiddenNodes1 = 12
   numHiddenNodes2 = 12
@@ -172,7 +168,14 @@ if __name__ == "__main__":
   IND_SIZE = ((numInputNodes+1) * numHiddenNodes1) + (numHiddenNodes1 *
                                                       numHiddenNodes2) + (numHiddenNodes2 * numOutputNodes)
 
-  network = neuralNetwork.NeuralNetwork(numInputNodes, numHiddenNodes1, numHiddenNodes2, numOutputNodes)
+  return neuralNetwork.NeuralNetwork(numInputNodes, numHiddenNodes1, numHiddenNodes2, numOutputNodes), IND_SIZE
+
+ 
+if __name__ == "__main__":
+
+  snake_game = currentSnake(XSIZE, YSIZE)
+
+  network, IND_SIZE = genNetwork()
 
   #'''
   (pop, logbook) = train(network, snake_game, IND_SIZE)

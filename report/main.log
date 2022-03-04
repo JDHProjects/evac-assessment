@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.3)  2 MAR 2022 15:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.3)  4 MAR 2022 17:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -578,9 +578,9 @@ Package biblatex Info: Reference section=0 on input line 21.
 Package biblatex Info: Reference segment=0 on input line 21.
  [1
 
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (/Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/sections/one.tex) [1]
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (/Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/sections/methods.tex [1]) [2] (/Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/sections/conclusions.tex) [3] (/Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/sections/results.tex) [4]
 
-LaTeX Warning: Empty bibliography on input line 37.
+LaTeX Warning: Empty bibliography on input line 43.
 
 (/Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/main.aux)
 Package logreq Info: Writing requests to 'main.run.xml'.
@@ -588,18 +588,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13819 strings out of 478994
- 246938 string characters out of 5858184
- 969563 words of memory out of 5000000
- 31166 multiletter control sequences out of 15000+600000
- 405836 words of font info for 35 fonts, out of 8000000 for 9000
+ 13836 strings out of 478994
+ 247474 string characters out of 5858184
+ 977563 words of memory out of 5000000
+ 31176 multiletter control sequences out of 15000+600000
+ 406299 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  81i,4n,88p,1100b,763s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on /Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/main.pdf (2 pages, 19364 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on /Users/jpurdy/Documents/Uni_Y4/EVAC/assessment/report/main.pdf (5 pages, 41192 bytes).
 PDF statistics:
- 19 PDF objects out of 1000 (max. 8388607)
- 12 compressed objects within 1 object stream
+ 32 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

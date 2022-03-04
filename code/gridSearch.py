@@ -11,7 +11,7 @@ import numpy as np
 import pickle
 
 # Number of grid cells in each direction (do not change this)
-XSIZE = YSIZE = 8
+XSIZE = YSIZE = 16
 
 random.seed(datetime.now())  # Set a random seed from the clock
   
@@ -112,7 +112,7 @@ def train(network, snake_game, IND_SIZE):
   toolbox.register("mate", tools.cxOnePoint)
   toolbox.register("evaluate", evaluate)
   toolbox.register("select", tools.selTournament, tournsize=3)
-  toolbox.register("mutate", tools.mutGaussian, mu=0.0, sigma=0.5, indpb=0.2)
+  toolbox.register("mutate", tools.mutGaussian, mu=0.0, sigma=0.5, indpb=0.1)
   toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
   stats = tools.Statistics(key=lambda ind: ind.fitness.values)
@@ -190,7 +190,7 @@ if __name__ == "__main__":
 
   network = neuralNetwork.NeuralNetwork(numInputNodes, numHiddenNodes1, numHiddenNodes2, numOutputNodes)
 
-  #'''
+  '''
   (pop, logbook) = train(network, snake_game, IND_SIZE)
   
   with open("dump.pop", 'wb') as writeFile:

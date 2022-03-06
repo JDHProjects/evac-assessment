@@ -56,7 +56,7 @@ def train(network, snake_game, IND_SIZE):
 
   scoreLogbook = tools.Logbook()
 
-  NGEN = 300
+  NGEN = 500
   CXPB = 0.0
   MUTPB = 1
   POP = 200
@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
   (pop, stats) = train(network, snake_game, IND_SIZE)
 
-  filename = "dump"
+  filename = "data/data-1"
   with open(filename+".pop", 'wb') as writeFile:
     pickle.dump(pop, writeFile)
 

@@ -9,6 +9,8 @@ import runGame
 import numpy as np
 import pickle
 
+RUN_NUM="1"
+
 # Number of grid cells in each direction (do not change this)
 XSIZE = YSIZE = 16
 
@@ -119,7 +121,7 @@ if __name__ == "__main__":
 
   (pop, stats) = train(network, snake_game, IND_SIZE)
 
-  filename = "dump"
+  filename = "data/data-"+RUN_NUM
   with open(filename+".pop", 'wb') as writeFile:
     pickle.dump(pop, writeFile)
 

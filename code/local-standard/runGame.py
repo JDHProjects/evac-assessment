@@ -63,7 +63,7 @@ def run_game(network, display, snake_game, headless):
       display.update_segment_positions(snake_game.snake)
       display.win.update()
       # Change this to modify the speed the game runs at when displayed.
-      time.sleep(0.02)
+      time.sleep(0.002)
 
   if not headless:
     turtle.done()

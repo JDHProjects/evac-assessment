@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
   network, IND_SIZE = genNetwork()
 
-  with open ("dump.ind", 'rb') as readFile:
+  with open ("data/data-1.ind", 'rb') as readFile:
     bestInd = pickle.load(readFile)
 
   network.setWeightsLinear(bestInd)

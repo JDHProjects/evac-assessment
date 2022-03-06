@@ -58,7 +58,7 @@ def train(network, snake_game, IND_SIZE):
 
   scoreLogbook = tools.Logbook()
 
-  NGEN = 300
+  NGEN = 500
   CXPB = 0.0
   MUTPB = 1
   POP = 200

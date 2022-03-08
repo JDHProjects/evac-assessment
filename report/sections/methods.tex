@@ -8,16 +8,20 @@ While the snake game discussed in this report is functionally the same as the in
 \end{enumerate}
 
 \subsection{Chosen Evolutionary Method}
-Genetic Programming was used to evolve weights in a neural network. Input nodes to this neural network were the snake sensing functions, with four output nodes representing snake direction; left, right, up and down. A single hidden layer was used for the neural network with the number of hidden layer nodes corresponding to the sum of the input and output layer nodes.
+A Genetic Algorithm (GA) was used to evolve weights in a Neural Network (NN). Input nodes to this neural network were the snake sensing functions, with four output nodes representing snake direction; left, right, up and down. Heaton \cite{heaton} discusses that most problems to not require more than one hidden layer therefore a single hidden layer was used for the neural network with the number of hidden layer nodes corresponding to the sum of the input and output layer nodes. Using a single hidden layer has a benefit of reducing overfitting compared to a multiple hidden layer network, along with decreasing time taken to train the network. A softmax function is used at the output layer to obtain the direction the snake should take, where left=0, right=1, up=2 and down=3. 
+
+
+Two selection methods from generation to generation were created and will be evaluated in this report, one method being a standard tournament selection while the second method utilizes an n+n method 
 
 \subsection{Development of Different Snakes}
-Three differing snakes were developed for the snake game and will be referred to in this report as:
+Four differing snakes were developed for the snake game and will be referred to in this report as:
 \begin{enumerate}
-  \item \verb|local-sensing|
-  \item \verb|space-aware-sensing|
-  \item \verb|n+b-evolution|
+  \item \verb|local-standard|
+  \item \verb|space_aware-standard|
+  \item \verb|local-n+n|
+  \item \verb|space_aware-n+n|
 \end{enumerate}
-Two directions of investigation were performed on the snake game. The first direction investigated the effect of differing collision sensing functions (\verb|local-sensing| against \verb|space-aware-sensing|) while the second investigated changing the generation selection method (\verb|local-sensing| against \verb|n+n-evolution|).
+Two directions of investigation were performed on the snake game, where each name is comprised of these two components separated by a hyphen. The first direction investigated the effect of differing collision sensing functions (\verb|local| against \verb|space-aware|) while the second investigated changing the generation selection method (\verb|standard| against \verb|n+n|).
 
 \subsection{Sensing Functions}
 Sensing functions were created for the snake to use to learn about its environment, these can be classified into two groups; food sensing functions and collision sensing functions. All sensing assumes grid format of \verb|[y,x]| and directions are relative to the grid, not the current direction of the snake.
@@ -28,7 +32,8 @@ Food sensing was constant throughout all developed snakes. Multiple methods of f
 If the Snake is directly in line with food in that direction, both directions on the axis will return False. For example, a snake head at position [4,4] and food at [6,6] would return True from \verb|downFood| and \verb|rightFood|, and False from \verb|upFood| and \verb|leftFood|. A snake head at position [4,4] and food at [6,4] would return True from \verb|downFood| and False from all other sense directions.
 
 \subsubsection{Collision Sensing}
-Two methods of collision sensing were developed, the first method of collision sensing was used by both \verb|local-sensing| and \verb|n+n-evolution|. Each direction has two collision sensing functions that both check based on a given position; one used to sense if the position is within a wall, and the other used to sense if the position is within the snake body. Both of these sensing functions return True if a collision is detected, False otherwise. These positions are given for each direction by calculating the position of the snake head if the snake moved in the given direction. For example, if the snake head is at position [4,4], the position given to \verb|senseWall| and \verb|senseTail| would be [4,3] when \verb|leftWall| and \verb|leftTail| are called. 
+Two methods of collision sensing were developed, the first method of collision sensing is referred to as \verb|local| and was used by both \verb|local-standard| and \verb|local-n+n|. Each direction has two collision sensing functions that both check based on a given position; one used to sense if the position is within a wall, and the other used to sense if the position is within the snake body. Both of these sensing functions return True if a collision is detected, False otherwise. These positions are given for each direction by calculating the position of the snake head if the snake moved in the given direction. For example, if the snake head is at position [4,4], the position given to \verb|senseWall| and \verb|senseTail| would be [4,3] when \verb|leftWall| and \verb|leftTail| are called. 
 
-These wall and tail functions could be combined into a single function to detect if a collision has occurred, however this was not implemented as providing both collision detection components separately allows a snake to learn separate behaviors depending on collision type, for example chasing it's tail or circling the grid perimeter
+These wall and tail functions could be combined into a single function to detect if a collision has occurred, however this was not implemented as providing both collision detection components separately allows a snake to learn separate behaviors depending on collision type, for example chasing it's tail or circling the grid perimeter.
 
+The second method of collision sensing is referred to as \verb|space_aware| and was used by both \verb|space_aware-standard| and \verb|space_aware-n+n|. This method was created to attempt to prevent the snake being trapped with no space to go. To create this sensing function, a recursive search was performed for a given position that counted all available spaces from that position. This search is performed at each of the four possible positions that the snake can move to (up, down, left and right).

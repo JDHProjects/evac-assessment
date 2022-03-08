@@ -16,5 +16,34 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{heaton}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a9674fb8c804e645a250187e02210a91}{%
+           family={Heaton},
+           familyi={H\bibinitperiod},
+           given={Jeff},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Heaton Research, Inc.}%
+      }
+      \strng{namehash}{a9674fb8c804e645a250187e02210a91}
+      \strng{fullhash}{a9674fb8c804e645a250187e02210a91}
+      \strng{bibnamehash}{a9674fb8c804e645a250187e02210a91}
+      \strng{authorbibnamehash}{a9674fb8c804e645a250187e02210a91}
+      \strng{authornamehash}{a9674fb8c804e645a250187e02210a91}
+      \strng{authorfullhash}{a9674fb8c804e645a250187e02210a91}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Introduction to neural networks with Java}
+      \field{year}{2008}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

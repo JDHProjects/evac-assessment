@@ -1,8 +1,8 @@
-from cProfile import label
 import matplotlib.pyplot as plt
 import pickle
 import numpy as np
 import math
+from scipy.stats import mannwhitneyu
 
 def generateBoxplot(data, names):
 
@@ -94,8 +94,27 @@ def getAllData(dataLocation, name, colour, filename="", title="", xLabel="Genera
 
   return {"gen": np.array(gens), "avg": np.array(avgs), "min": np.array(mins), "max": np.array(maxs), "std": np.array(stds), "label": name, "colour": colour }
 
-def getCohensD(stat1, stat2):
-  return abs(np.mean(stat1["avg"]) - np.mean(stat1["avg"])) / math.sqrt()
+
+def getCohensD(meanDiff, std1, std2):
+  N=10
+  offset = ((N-3)/(N-2.25) + math.sqrt((N-2)/2)) 
+
+  return (meanDiff/(math.sqrt(((std1**2) + (std2**2)) /2 ))) * offset
+
+
+def getAverageUAndP(stats1, stats2):
+  allP = []
+  allU = []
+  allMeanDiff = []
+  lenGen = len(stats1["gen"])
+  for i in range(0,lenGen):
+    u, p = mannwhitneyu(stats1["avg"][:,i], stats2["avg"][:,i])
+    allP.append(p)
+    allU.append(min(u, (len(stats1["avg"][:,i]) * len(stats2["avg"][:,i]))-u))
+    allMeanDiff.append(abs(np.mean(stats1["avg"][:,i]) - np.mean(stats2["avg"][:,i])))
+
+  return np.mean(allU), np.mean(allP), np.mean(allMeanDiff)
+
 
 
 if __name__ == "__main__":
@@ -104,19 +123,18 @@ if __name__ == "__main__":
   #  stats = pickle.load(readFile)
 
   #generateScoreGraph(stats)
-  stats1  = getAverageData("../local-standard/data", "local-standard", "blue")
-  stats2  = getAverageData("../local-n+n/data", "local-n+n", "orange")
-  stats3  = getLastGenData("../space_aware-standard/data", "space_aware-standard", "red")
-  stats4  = getLastGenData("../space_aware-n+n/data", "space_aware-n+n", "green")
-  from scipy.stats import mannwhitneyu
-  #print(len(stats3["avg"]))
-  #print(len(stats1["avg"][:,-1]))
-  #stat, p = mannwhitneyu(stats1["avg"][-1], stats3["avg"][-1])
-  #print('Standard: Statistics=%.1f, p=%.6f' % (stat, p))
-  #stat, p = mannwhitneyu(stats3["avg"], stats4["avg"])
-  #print('Space Aware: Statistics=%.1f, p=%.6f' % (stat, p))
-  #stat, p = mannwhitneyu(stats2["avg"], stats4["avg"])
-  #print('N+N: Statistics=%.1f, p=%.6f' % (stat, p))
+  stats1  = getAllData("../local-standard/data", "local-standard", "blue")
+  stats2  = getAllData("../local-n+n/data", "local-n+n", "orange")
+  stats3  = getAllData("../space_aware-standard/data", "space_aware-standard", "red")
+  stats4  = getAllData("../space_aware-n+n/data", "space_aware-n+n", "green")
+  stat, p, d = getAverageUAndP(stats1,stats2)
+  print('Local: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
+  stat, p, d = getAverageUAndP(stats1,stats3)
+  print('Standard: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
+  stat, p, d = getAverageUAndP(stats3,stats4)
+  print('Space Aware: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
+  stat, p, d = getAverageUAndP(stats2,stats4)
+  print('N+N: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
 
   #generateBoxplot([stats1["avg"][:,-1],stats2["avg"][:,-1],stats3["avg"],stats4["avg"]],[stats1["label"],stats2["label"],stats3["label"],stats4["label"]])
   #print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score", filename=""))

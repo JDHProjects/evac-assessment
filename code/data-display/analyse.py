@@ -2,25 +2,26 @@ from cProfile import label
 import matplotlib.pyplot as plt
 import pickle
 import numpy as np
+import math
 
 def generateBoxplot(data, names):
 
-  fig = plt.figure(figsize =(10, 7)) 
-  ax = fig.add_axes([0, 0, 1, 1]) 
-  print(names)
+  fig = plt.figure()
+  ax = fig.add_axes([0.1, 0.1, 0.8, 0.8]) 
+  ax.boxplot(data)
+  ax.set_title('Average of 10 Runs At Generation 500, Performance of Each Snake Algorithm')
+  ax.set_xlabel('Algorithm')
   ax.set_xticklabels(names) 
-
-  ax.set_xlabel('Condition')
   ax.set_ylabel('Score')
 
-  ax.boxplot(data)
   plt.show()
-  fig.show()
 
 def generateGraph(gen, stats, xLabel, yLabel, title="", filename=""):
   plt.figure()
   if(title != ""):
     plt.title(title)
+  #else:
+    #plt.title('Average of 10 Runs, evolution of\n'+stats[0]["label"]+' vs '+stats[1]["label"])
   plt.xlabel(xLabel)
   plt.ylabel(yLabel)
   for stat in stats:
@@ -40,7 +41,6 @@ def generateGraph(gen, stats, xLabel, yLabel, title="", filename=""):
       if ("max" in stat):
         plt.plot(gen, stat["max"], label='Maximum')
     plt.legend(loc='best', fancybox=True, framealpha=0.5)
-  
   if(filename!=""):
     plt.savefig(filename)
     return
@@ -67,6 +67,16 @@ def generateScoreGraph(stats, filename="", title="", xLabel="Generation", yLabel
   return generateGraph(gen, [stat], xLabel, yLabel, title, filename)
 
 def getAverageData(dataLocation, name, colour, filename="", title="", xLabel="Generation", yLabel="Score"):
+  ret = getAllData(dataLocation, name, colour, filename, title, xLabel, yLabel)
+
+  return {"gen": ret["gen"], "avg": np.mean(ret["avg"], axis=0), "min": np.mean(ret["min"], axis=0), "max": np.mean(ret["max"], axis=0), "std": np.mean(ret["std"], axis=0), "label": name, "colour": colour }
+
+def getLastGenData(dataLocation, name, colour, filename="", title="", xLabel="Generation", yLabel="Score"):
+  ret = getAllData(dataLocation, name, colour, filename, title, xLabel, yLabel)
+
+  return {"gen": ret["gen"], "avg": ret["avg"][:,-1], "min": ret["min"][:,-1], "max": ret["max"][:,-1], "std": ret["std"][:,-1], "label": name, "colour": colour }
+
+def getAllData(dataLocation, name, colour, filename="", title="", xLabel="Generation", yLabel="Score"):
   avgs = []
   gens = None
   mins = []
@@ -77,30 +87,38 @@ def getAverageData(dataLocation, name, colour, filename="", title="", xLabel="Ge
       stats = pickle.load(readFile)
     logbook = stats["scoreLogbook"]
     gens = logbook.select("gen")
-    end = len(gens)
-    mins.append(logbook.select("min")[-1])
-    maxs.append(logbook.select("max")[-1])
-    avgs.append(logbook.select("avg")[-1])
-    stds.append(logbook.select("std")[-1])
+    mins.append(logbook.select("min"))
+    maxs.append(logbook.select("max"))
+    avgs.append(logbook.select("avg"))
+    stds.append(logbook.select("std"))
 
-  return {"gen": gens, "avg": avgs, "min": np.mean(mins, axis=0), "max": np.mean(maxs, axis=0), "std": np.mean(stds, axis=0), "label": name, "colour": colour }
+  return {"gen": np.array(gens), "avg": np.array(avgs), "min": np.array(mins), "max": np.array(maxs), "std": np.array(stds), "label": name, "colour": colour }
+
+def getCohensD(stat1, stat2):
+  return abs(np.mean(stat1["avg"]) - np.mean(stat1["avg"])) / math.sqrt()
 
 
 if __name__ == "__main__":
-
+  
   #with open ("../local-n+n/data/data-1.stats", 'rb') as readFile:
   #  stats = pickle.load(readFile)
 
   #generateScoreGraph(stats)
   stats1  = getAverageData("../local-standard/data", "local-standard", "blue")
-  stats2  = getAverageData("../local-n+n/data", "local-standard", "blue")
-  stats3  = getAverageData("../space_aware-standard/data", "space_aware", "blue")
-  stats4  = getAverageData("../space_aware-n+n/data", "space_aware-n+n", "orange")
+  stats2  = getAverageData("../local-n+n/data", "local-n+n", "orange")
+  stats3  = getLastGenData("../space_aware-standard/data", "space_aware-standard", "red")
+  stats4  = getLastGenData("../space_aware-n+n/data", "space_aware-n+n", "green")
   from scipy.stats import mannwhitneyu
-  stat, p = mannwhitneyu(stats1["avg"], stats2["avg"])
-  print('Statistics=%.3f, p=%.10f' % (stat, p))
-  print(stats1["avg"])
-  generateBoxplot([stats1["avg"],stats2["avg"],stats3["avg"],stats4["avg"]],["A","B","C","D"])
-  #print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score"))
+  #print(len(stats3["avg"]))
+  #print(len(stats1["avg"][:,-1]))
+  #stat, p = mannwhitneyu(stats1["avg"][-1], stats3["avg"][-1])
+  #print('Standard: Statistics=%.1f, p=%.6f' % (stat, p))
+  #stat, p = mannwhitneyu(stats3["avg"], stats4["avg"])
+  #print('Space Aware: Statistics=%.1f, p=%.6f' % (stat, p))
+  #stat, p = mannwhitneyu(stats2["avg"], stats4["avg"])
+  #print('N+N: Statistics=%.1f, p=%.6f' % (stat, p))
+
+  #generateBoxplot([stats1["avg"][:,-1],stats2["avg"][:,-1],stats3["avg"],stats4["avg"]],[stats1["label"],stats2["label"],stats3["label"],stats4["label"]])
+  print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score", filename=""))
 
 

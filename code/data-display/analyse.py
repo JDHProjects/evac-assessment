@@ -119,6 +119,6 @@ if __name__ == "__main__":
   #print('N+N: Statistics=%.1f, p=%.6f' % (stat, p))
 
   #generateBoxplot([stats1["avg"][:,-1],stats2["avg"][:,-1],stats3["avg"],stats4["avg"]],[stats1["label"],stats2["label"],stats3["label"],stats4["label"]])
-  print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score", filename=""))
+  #print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score", filename=""))
 
 

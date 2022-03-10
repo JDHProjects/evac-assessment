@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.3.8)  9 MAR 2022 23:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2022.3.8)  10 MAR 2022 22:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -628,10 +628,10 @@ Underfull \hbox (badness 5924) in paragraph at lines 92--92
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (/home/josh/Documents/evac-assessment/report/sections/conclusions.tex) [4 </home/josh/Documents/evac-assessment/report/./additional/images//local.png> </home/josh/Documents/evac-assessment/report/./additional/images//space_aware.png>]
+) (/home/josh/Documents/evac-assessment/report/sections/conclusions.tex [4 </home/josh/Documents/evac-assessment/report/./additional/images//local.png> </home/josh/Documents/evac-assessment/report/./additional/images//space_aware.png>]) [5 </home/josh/Documents/evac-assessment/report/./additional/images//standard.png> </home/josh/Documents/evac-assessment/report/./additional/images//n+n.png>]
 LaTeX Font Info:    Font shape `OT1/cmss/m/it' in size <12> not available
 (Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 48.
- [5 </home/josh/Documents/evac-assessment/report/./additional/images//standard.png> </home/josh/Documents/evac-assessment/report/./additional/images//n+n.png>] (/home/josh/Documents/evac-assessment/report/main.aux)
+ [6] (/home/josh/Documents/evac-assessment/report/main.aux)
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -645,10 +645,10 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  81i,7n,88p,1090b,1126s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/josh/Documents/evac-assessment/report/main.pdf (6 pages, 275942 bytes).
+Output written on /home/josh/Documents/evac-assessment/report/main.pdf (7 pages, 277808 bytes).
 PDF statistics:
- 68 PDF objects out of 1000 (max. 8388607)
- 39 compressed objects within 1 object stream
+ 73 PDF objects out of 1000 (max. 8388607)
+ 43 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -15,8 +15,8 @@ creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
 
 def genNetwork():
-  numInputNodes = 12
-  numHiddenNodes = 16
+  numInputNodes = 8
+  numHiddenNodes = 12
   numOutputNodes = 4
 
   IND_SIZE = ((numInputNodes+1) * numHiddenNodes) +  + (numHiddenNodes * numOutputNodes)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
   network, IND_SIZE = genNetwork()
 
-  with open ("dump.ind", 'rb') as readFile:
+  with open ("data/data-1.ind", 'rb') as readFile:
     bestInd = pickle.load(readFile)
 
   network.setWeightsLinear(bestInd)

@@ -12,7 +12,11 @@
 \usepackage[style=ieee]{biblatex}
 \usepackage{subfiles}
 \usepackage{wrapfig}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
 \graphicspath{ {./additional/images/} }
+
+
 
 \addbibresource{additional/refs.bib}
 \setcounter{biburllcpenalty}{8000}
@@ -20,12 +24,17 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
 
 \begin{document}
 \setlength{\abovedisplayskip}{2pt}
 \setlength{\belowdisplayskip}{2pt}
 \setlength{\abovedisplayshortskip}{2pt}
 \setlength{\belowdisplayshortskip}{2pt}
+
 \begin{titlepage}
 \begin{center}
 \vspace*{1cm}
@@ -46,5 +55,15 @@
 \subfile{sections/conclusions}
 \pagebreak
 \printbibliography
+\pagebreak
+\section*{Appendix}
+\subfile{sections/appendix}
+
+\begin{center}
+
+\Large
+\textbf{END OF PAPER}
+
+\end{center}
 
 \end{document}

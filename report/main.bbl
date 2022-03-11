@@ -43,6 +43,72 @@
       \field{title}{Introduction to neural networks with Java}
       \field{year}{2008}
     \endentry
+    \entry{nplusn}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=0d26651420cf9261b772e3b59ed884b9}{%
+           family={Yeh},
+           familyi={Y\bibinitperiod},
+           given={Jia-Fong},
+           giveni={J\bibinithyphendelim F\bibinitperiod}}}%
+        {{hash=e4e793324f06dd44c4665ef2b21a0669}{%
+           family={Su},
+           familyi={S\bibinitperiod},
+           given={Pei-Hsiu},
+           giveni={P\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=766c1b00d76652041789da097c12bb79}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Shi-Heng},
+           giveni={S\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=182fa813a0ba5cef40bfbc398e04fa4a}{%
+           family={Chiang},
+           familyi={C\bibinitperiod},
+           given={Tsung-Che},
+           giveni={T\bibinithyphendelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{83e1f1e3b7bf6a68f20c6ad8b643d5ed}
+      \strng{fullhash}{f0d88449c168868495cbdd2fd0316aac}
+      \strng{bibnamehash}{f0d88449c168868495cbdd2fd0316aac}
+      \strng{authorbibnamehash}{f0d88449c168868495cbdd2fd0316aac}
+      \strng{authornamehash}{83e1f1e3b7bf6a68f20c6ad8b643d5ed}
+      \strng{authorfullhash}{f0d88449c168868495cbdd2fd0316aac}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{11}
+      \field{title}{Snake game AI: Movement rating functions and evolutionary algorithm-based optimization}
+      \field{year}{2016}
+      \verb{doi}
+      \verb 10.13140/RG.2.2.33593.36969
+      \endverb
+    \endentry
+    \entry{craig}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a33bd68e0c108efde1235c84b31162b4}{%
+           family={Haber},
+           familyi={H\bibinitperiod},
+           given={Craig},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{a33bd68e0c108efde1235c84b31162b4}
+      \strng{fullhash}{a33bd68e0c108efde1235c84b31162b4}
+      \strng{bibnamehash}{a33bd68e0c108efde1235c84b31162b4}
+      \strng{authorbibnamehash}{a33bd68e0c108efde1235c84b31162b4}
+      \strng{authornamehash}{a33bd68e0c108efde1235c84b31162b4}
+      \strng{authorfullhash}{a33bd68e0c108efde1235c84b31162b4}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The AI for Snake Game Chronicles}
+      \verb{urlraw}
+      \verb https://craighaber.github.io/AI-for-Snake-Game/website_files/index.html
+      \endverb
+      \verb{url}
+      \verb https://craighaber.github.io/AI-for-Snake-Game/website_files/index.html
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

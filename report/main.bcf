@@ -2349,6 +2349,8 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">heaton</bcf:citekey>
+    <bcf:citekey order="2">nplusn</bcf:citekey>
+    <bcf:citekey order="3">craig</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

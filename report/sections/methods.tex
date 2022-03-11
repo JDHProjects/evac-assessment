@@ -1,21 +1,12 @@
 \subsection{Changes to Provided Code}
-While the snake game discussed in this report is functionally the same as the initially supplied code provided with the assessment, some large changes have been made to the structure. Most notably, the snake game and neural network has been split into multiple separate scripts for ease of development. These files are detailed as follows:
-
-\begin{enumerate}
-  \item \verb|code/displayGame.py| - This file contains the \verb|DisplayGame| class, the only change to this class is changing the snake body colour to be only green to remove any confusion on which way the snake is facing.
-  \item \verb|code/runGame.py| - This file contains the \verb|runGame| function, other than the code added to facilitate AI snake control into this, other changes have been made. A guard was added to the check of if the snake has eaten food to see if the snake has completed the game. Game completion is defined as there being no available spaces on the board to place food as the snake is taking up all available grid positions. There are also changes to the clean-up of the Python turtle to prevent Python kernel crash. 
-  \item \verb|code/snake.py| - This file contains the \verb|snake| class. While sensing functions have been added to this class, the only change to initially provided functions has been to use \verb|self.XSIZE| and \verb|self.YSIZE| instead of the global \verb|XSIZE|, \verb|YSIZE|.
-\end{enumerate}
+While the snake game discussed in this report is functionally the same as the initially supplied code provided with the assessment, some large changes have been made to the structure. Most notably, the snake game and neural network has been split into multiple separate scripts for ease of development. Details on all provided files can be found in appendix \ref{appendix:a}.
 
 \subsection{Chosen Evolutionary Method}
 A Genetic Algorithm (GA) was used to evolve weights in a Neural Network (NN). Input nodes to this neural network were the snake sensing functions, with four output nodes representing snake direction; left, right, up and down. Heaton \cite{heaton} discusses that most problems to not require more than one hidden layer therefore a single hidden layer was used for the neural network with the number of hidden layer nodes corresponding to the sum of the input and output layer nodes. Using a single hidden layer has a benefit of reducing overfitting compared to a multiple hidden layer network, along with decreasing time taken to train the network. A softmax function is used at the output layer to obtain the direction the snake should take, where left=0, right=1, up=2 and down=3. 
 
-
-Two selection methods from generation to generation were created and will be evaluated in this report, one method being a standard tournament selection while the second method utilizes an n+n method 
-
 \subsection{Development of Different Snakes}
 Four differing snakes were developed for the snake game and will be referred to in this report as:
-\begin{enumerate}
+\begin{enumerate}[itemsep=-0.5em]
   \item \verb|local-standard|
   \item \verb|space_aware-standard|
   \item \verb|local-n+n|
@@ -37,3 +28,15 @@ Two methods of collision sensing were developed, the first method of collision s
 These wall and tail functions could be combined into a single function to detect if a collision has occurred, however this was not implemented as providing both collision detection components separately allows a snake to learn separate behaviors depending on collision type, for example chasing it's tail or circling the grid perimeter.
 
 The second method of collision sensing is referred to as \verb|space_aware| and was used by both \verb|space_aware-standard| and \verb|space_aware-n+n|. This method was created to attempt to prevent the snake being trapped with no space to go. To create this sensing function, a recursive search was performed for a given position that counted all available spaces from that position. This search is performed at each of the four possible positions that the snake can move to (up, down, left and right).
+
+\subsection{Population Selection Between Generations}
+Two selection methods have been developed for this report. Both generation to generation selection methods use a tournament selection method with a size of 3 to select individuals to evolve. Where the two selection methods standard and n+n differ is their assignment of the population to be used for the next generation. Standard evolution simply uses tournament selection to select a full population of individuals, these individuals are then evaluated and all selected individuals are assigned to the population. 
+
+n+n evolution, as discussed by Yeh et al \cite{nplusn}, uses the concept of preserving best individuals from earlier generations without mutation. This is performed by tournament selecting a full population of individuals that are evaluated, the same as standard evolution, however the assignment of individuals to the next population is where these two methods differ. n+n evolution combines the best half of the previous generation population with the best half of the newly evaluated individuals, to preserve individuals with promising weighting from being overwhelmed by random mutations.
+
+\subsection{Fitness, Mutation and Crossover}
+Multiple fitness functions were tested before settling on one that fitness function for all snakes that gave best performance. This fitness function was detailed by Haber \cite{craig} and is of the form $(\texttt{score}^3) * \texttt{timeAlive}$, where \texttt{timeAlive} is a counter incremented each move. A starvation function of $\min(5 * \texttt{snakeLength}, 200)$ was implemented alongside this to prevent snakes developing behavior that maximises time alive over score. An additional variable \texttt{timeSinceEaten} was incremented each move and reset to 0 when food was eaten by the snake, this was the variable compared to in the starvation function. If a snake died to starvation, \texttt{timeSinceEaten} was subtracted from \texttt{timeAlive} to discourage future starvation promoting behaviour.
+
+Mutation probability was explored in two differing ways, the first being \texttt{MUTPB} which is the probability that an individual is selected for mutation. The second was \texttt{indpb}, which is the probability that a single attribute of an individual is mutated. Gaussian mutation was chosen to mutate with, and through preliminary testing ideal values were found to be $\texttt{MUTPB} = 1, \texttt{indpb} = 0.1$.
+
+Through preliminary testing, both single and two-point crossover were found to harm the evolution of this implementation of snake AI evolution, and were subsequently removed from final versions of all algorithms by setting the constant \texttt{CXPB} to 0, for a 0 probability of an individual experiencing crossover.

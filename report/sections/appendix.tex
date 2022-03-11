@@ -1,0 +1,24 @@
+\appendix
+
+\section{Provided Files and Changes to Provided Code}
+\label{appendix:a}
+All supplied code files are detailed as follows:
+
+\subsection{\texttt{code/displayGame.py}}
+This file contains the \verb|DisplayGame| class, the only change to this class is changing the snake body colour to be only green to remove any confusion on which way the snake is facing.
+\subsection{\texttt{code/neuralNetwork.py}}
+This file contains the \verb|NeuralNetwork| class, this is the neural network that is evolved by the snake.
+\subsection{\texttt{code/runGame.py}}
+This file contains the \verb|runGame| function, other than the code added to facilitate AI snake control into this, other changes have been made. A guard was added to the check of if the snake has eaten food to see if the snake has completed the game. Game completion is defined as there being no available spaces on the board to place food as the snake is taking up all available grid positions. There are also changes to the clean-up of the Python turtle to prevent Python kernel crash. 
+\subsection{\texttt{code/snake.py}}
+This file contains the \verb|snake| class. While sensing functions have been added to this class, the only change to initially provided functions has been to use \verb|self.XSIZE| and \verb|self.YSIZE| instead of the global \verb|XSIZE|, \verb|YSIZE|.
+\subsection{\texttt{code/runSavedBestSnake.py}}
+This file will load a pickled individual and run the game graphically. Running this file will automatically load \texttt{bestSnake.ind} and show the user the best snake playing the snake game.
+\subsection{\texttt{code/trainSnake.py}}
+This file will train a population of 200 individuals for 500 generations using the \texttt{local-standard} algorithm developed in this report. Population data will be saved as \texttt{snake.pop}, best individual as \texttt{snake.ind}, and a dictionary with keys \texttt{fitnessLogbook} and \texttt{scoreLogbook} that correspond to respective logbooks are saved as \texttt{snake.stats}.
+\subsection{\texttt{code/bestSnake.ind}}
+This is a pickled form of the best trained individual in population \texttt{code/bestSnake.pop}, trained for 500 generations. Can be seen playing the game by running \texttt{code/runSavedBestSnake.py}.
+\subsection{\texttt{code/bestSnake.pop}}
+This is a pickled form of a population trained for 500 generations that contains \texttt{code/bestSnake.ind}.
+\subsection{\texttt{code/bestSnake.stats}}
+This is a pickled form of a dictionary that contains 500 generations of fitness and score logbook data to be used for graphing. Data is of \texttt{code/bestSnake.pop}, and is of form of a dictionary with keys \texttt{fitnessLogbook} and \texttt{scoreLogbook} that correspond to respective logbooks. These logbooks contain \texttt{min}, \texttt{max}, \texttt{avg} and \texttt{std} values.

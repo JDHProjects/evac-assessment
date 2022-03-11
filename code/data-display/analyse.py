@@ -4,16 +4,17 @@ import numpy as np
 import math
 from scipy.stats import mannwhitneyu
 
-def generateBoxplot(data, names):
+def generateBoxplot(data, names, filename=""):
 
   fig = plt.figure()
   ax = fig.add_axes([0.1, 0.1, 0.8, 0.8]) 
   ax.boxplot(data)
-  ax.set_title('Average of 10 Runs At Generation 500, Performance of Each Snake Algorithm')
   ax.set_xlabel('Algorithm')
   ax.set_xticklabels(names) 
   ax.set_ylabel('Score')
-
+  if(filename!=""):
+    plt.savefig(filename)
+    return
   plt.show()
 
 def generateGraph(gen, stats, xLabel, yLabel, title="", filename=""):
@@ -123,10 +124,12 @@ if __name__ == "__main__":
   #  stats = pickle.load(readFile)
 
   #generateScoreGraph(stats)
-  stats1  = getAllData("../local-standard/data", "local-standard", "blue")
-  stats2  = getAllData("../local-n+n/data", "local-n+n", "orange")
-  stats3  = getAllData("../space_aware-standard/data", "space_aware-standard", "red")
-  stats4  = getAllData("../space_aware-n+n/data", "space_aware-n+n", "green")
+  stats1  = getLastGenData("../local-standard/data", "local-standard", "blue")
+  stats2  = getLastGenData("../local-n+n/data", "local-n+n", "orange")
+  stats3  = getLastGenData("../space_aware-standard/data", "space_aware-standard", "red")
+  stats4  = getLastGenData("../space_aware-n+n/data", "space_aware-n+n", "green")
+  print(stats1["avg"])
+  '''
   stat, p, d = getAverageUAndP(stats1,stats2)
   print('Local: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
   stat, p, d = getAverageUAndP(stats1,stats3)
@@ -135,8 +138,8 @@ if __name__ == "__main__":
   print('Space Aware: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
   stat, p, d = getAverageUAndP(stats2,stats4)
   print('N+N: U=%.1f, p=%.6f, Mean diff=%.6f' % (stat, p, d))
-
-  #generateBoxplot([stats1["avg"][:,-1],stats2["avg"][:,-1],stats3["avg"],stats4["avg"]],[stats1["label"],stats2["label"],stats3["label"],stats4["label"]])
-  #print(generateGraph(stats1["gen"], [stats1,stats2], "Generations", "Mean Score", filename=""))
+  '''
+  #generateBoxplot([stats1["avg"],stats2["avg"],stats3["avg"],stats4["avg"]],[stats1["label"],stats2["label"],stats3["label"],stats4["label"]], "box")
+  #print(generateGraph(stats1["gen"], [stats1,stats2,stats3,stats4], "Generations", "Score", filename="all"))
 
 

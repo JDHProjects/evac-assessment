@@ -1,3 +1,7 @@
+"""
+  Snake Class. Code overview can be found in report appendix
+"""
+
 import random
 
 class snake:
@@ -8,7 +12,6 @@ class snake:
     self.food = [0,2]
 
   def reset(self):
-
     self.snake = [[8, 10], [8, 9], [8, 8], [8, 7], [8, 6], [8, 5], [8, 4], [
         8, 3], [8, 2], [8, 1], [8, 0]]  # Initial snake co-ordinates [ypos,xpos]
     self.food = self.place_food()
@@ -48,10 +51,13 @@ class snake:
       return False
 
   def senseWall(self, pos):
+    # check if position in wall
     return(pos[0] <= 0 or pos[0] >= (self.YSIZE-1) or pos[1] <= 0 or pos[1] >= (self.XSIZE-1))
 
   def senseTail(self, pos):
+    # check if position in tail
     return pos in self.snake
+
 
   def leftWall(self):
     return self.senseWall([self.snake[0][0],self.snake[0][1]-1])
@@ -60,6 +66,7 @@ class snake:
     return self.senseTail([self.snake[0][0],self.snake[0][1]-1])
 
   def leftFood(self):
+    # return true if food on left of snake
     return self.food[1] < self.snake[0][1]
 
   def rightWall(self):
@@ -69,6 +76,7 @@ class snake:
     return self.senseTail([self.snake[0][0],self.snake[0][1]+1])
 
   def rightFood(self):
+    # return true if food on right of snake
     return self.food[1] > self.snake[0][1]
 
   def upWall(self):
@@ -78,6 +86,7 @@ class snake:
     return self.senseTail([self.snake[0][0]-1,self.snake[0][1]])
 
   def upFood(self):
+    # return true if food above snake
     return self.food[0] < self.snake[0][0]
 
   def downWall(self):
@@ -87,11 +96,13 @@ class snake:
     return self.senseTail([self.snake[0][0]+1,self.snake[0][1]])
 
   def downFood(self):
+    # return true if food below snake
     return self.food[0] > self.snake[0][0]
-
+  
   def getInputs(self):
-      return [  self.leftWall(), self.leftTail(), self.leftFood(),
-                self.rightWall(), self.rightTail(), self.rightFood(),
-                self.upWall(), self.upTail(), self.upFood(),
-                self.downWall(), self.downTail(), self.downFood(),
-                ]
+    # gather inputs
+    return [  self.leftWall(), self.leftTail(), self.leftFood(),
+              self.rightWall(), self.rightTail(), self.rightFood(),
+              self.upWall(), self.upTail(), self.upFood(),
+              self.downWall(), self.downTail(), self.downFood(),
+              ]

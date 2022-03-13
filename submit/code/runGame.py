@@ -1,3 +1,7 @@
+"""
+  Main game loop. Code overview can be found in report appendix
+"""
+
 import turtle
 import time
 import numpy as np

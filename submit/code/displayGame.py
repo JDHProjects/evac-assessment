@@ -1,3 +1,8 @@
+"""
+  Used to draw game. Code overview can be found in report appendix
+"""
+
+
 import turtle
 
 class DisplayGame:
